@@ -1,13 +1,12 @@
-from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout,QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox)
-from PyQt5.QtCore import QSettings, Qt  # Corrected import
-from PyQt5.QtGui import QPalette, QColor
-from PyQt5.QtCore import Qt, QPoint
-from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox
+from PyQt5.QtCore import QSettings, Qt, QPoint
+from PyQt5.QtGui import QPalette, QColor, QFont
 import sys
 from datetime import datetime, timedelta
 import pytz
 import subprocess
 import requests
+
 
 settings = QSettings('VCX0', 'RMM')
 
