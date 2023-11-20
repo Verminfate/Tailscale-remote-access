@@ -19,4 +19,5 @@ For example my tailnet name is vcx0.com
 Click "Ok"
 Close the app and run the same python command to open it again
 After opening it should look something like this, Note the red rectangle is to protect my machines IP's and hostnames
+
 ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/0d4a9c1a-2b17-45ea-97f5-d95c2fffad6d)
