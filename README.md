@@ -15,9 +15,9 @@ All machines will need remote access enabled and configured however this script 
 * Execute `python main.py`
 * A new window should open that looks like this
 
-  ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/ad3f2896-4658-4eac-944f-b42e39cec368)
+   ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/38b967ed-237e-4093-b331-41da679b617a)
 
-* Click on **Settings**
+
 * Open this url in your web browser https://login.tailscale.com/admin/settings/oauth
 * Click **Generate OAuth Client**
 * Give the client Read permissions to everything
