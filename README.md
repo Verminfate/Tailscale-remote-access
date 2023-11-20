@@ -24,3 +24,13 @@ Tailscale is a very easy to setup VPN that lets you connect all of your devices 
 * Click **Ok**
 * Close the app and run the same python command `python main.py` to re-open the program
 * The program should be working now
+
+## Todo
+* Make the Refresh button work
+* Store the value that decides if a machine is online/offline in the settings menu
+* Have a first start menu that appears, that way we can avoid the "Empty" computer on first startup
+* Get SSH working
+* Compatability on Macosx
+* Individual settings for each computer, that way you can select a connection method and username to connect with (I wont be doing this for passwords)
+* Create a .exe that launches the python script silently (No command prompt window visible)
+  
