@@ -78,13 +78,6 @@ def grab_computer_data():
     )
     computers = {}
 
-    No_response = {
-        "Empty": {
-            "IP": "Empty",
-            "OS": "Empty",
-            "Last Seen": "2023-11-19T23:46:46Z"
-        }
-    } 
 
     if response.status_code == 200:
         print("Response: 200, OAuth is working")
@@ -117,7 +110,6 @@ def grab_computer_data():
             print("Error fetching devices:", devices_response.status_code, devices_response.text)
     else:
         print("Error:", response.status_code, response.text)
-        return No_response
 
 computer_data = grab_computer_data()
 
@@ -144,57 +136,60 @@ class DeviceConnectApp(QWidget):
         self.setPalette(palette)
 
         layout = QVBoxLayout()
-
-        for index, (computer_name, info) in enumerate(computer_data.items(), start=1):
-            ip = computer_data[computer_name]['IP']
-            OS = computer_data[computer_name]['OS']
-            method = "None"
-            if(OS == "windows"):
-                method = "RDP"
-                OS = "Windows"
-            if(OS == "linux"):
-                method = "SSH"
-                OS = "Linux"
-            if(OS == "iOS"):
+        print(computer_data)
+        if(computer_data == None):
+            self.openSettings()
+        else:
+            for index, (computer_name, info) in enumerate(computer_data.items(), start=1):
+                ip = computer_data[computer_name]['IP']
+                OS = computer_data[computer_name]['OS']
                 method = "None"
-                OS = "IOS"
-            Last_Seen = computer_data[computer_name]['Last Seen']
-            frame = QFrame()
-            frame.setFrameShape(QFrame.StyledPanel)
-            frame_layout = QHBoxLayout(frame)
-            frame.setStyleSheet("background-color: #c7c7c7;")  
+                if(OS == "windows"):
+                    method = "RDP"
+                    OS = "Windows"
+                if(OS == "linux"):
+                    method = "SSH"
+                    OS = "Linux"
+                if(OS == "iOS"):
+                    method = "None"
+                    OS = "IOS"
+                Last_Seen = computer_data[computer_name]['Last Seen']
+                frame = QFrame()
+                frame.setFrameShape(QFrame.StyledPanel)
+                frame_layout = QHBoxLayout(frame)
+                frame.setStyleSheet("background-color: #c7c7c7;")  
 
-            status_layout = QHBoxLayout()
-            status_layout.setSpacing(2)  
-            status_layout.setContentsMargins(0, 0, 0, 0)
+                status_layout = QHBoxLayout()
+                status_layout.setSpacing(2)  
+                status_layout.setContentsMargins(0, 0, 0, 0)
 
-            name_label = QLabel(computer_name)
-            ip_label = QLabel(ip)
-            os_label = QLabel(OS)
-
-
-            online_offline_box = QLabel("•") #• ■
-            Last_Seen_Label = QLabel(check_online_status(Last_Seen))
-            if Last_Seen_Label.text() == "Online":
-                online_offline_box.setStyleSheet("QLabel { color: #00FF00; font-size: 20pt; }")
-            else:
-                online_offline_box.setStyleSheet("QLabel { color: red; font-size: 20pt; }")
-            status_layout.addWidget(online_offline_box, alignment=Qt.AlignLeft)
-            status_layout.addWidget(Last_Seen_Label, alignment=Qt.AlignLeft)
-            status_container = QWidget()
-            status_container.setLayout(status_layout)
+                name_label = QLabel(computer_name)
+                ip_label = QLabel(ip)
+                os_label = QLabel(OS)
 
 
+                online_offline_box = QLabel("•") #• ■
+                Last_Seen_Label = QLabel(check_online_status(Last_Seen))
+                if Last_Seen_Label.text() == "Online":
+                    online_offline_box.setStyleSheet("QLabel { color: #00FF00; font-size: 20pt; }")
+                else:
+                    online_offline_box.setStyleSheet("QLabel { color: red; font-size: 20pt; }")
+                status_layout.addWidget(online_offline_box, alignment=Qt.AlignLeft)
+                status_layout.addWidget(Last_Seen_Label, alignment=Qt.AlignLeft)
+                status_container = QWidget()
+                status_container.setLayout(status_layout)
 
-            button = QPushButton('Connect')
-            button.clicked.connect(lambda computer_name1=computer_name, ip=ip, m=method: self.connectDevice(computer_name1, ip, m))
 
-            frame_layout.addWidget(name_label)
-            frame_layout.addWidget(ip_label)
-            frame_layout.addWidget(os_label)
-            frame_layout.addWidget(status_container)
-            frame_layout.addWidget(button)
-            layout.addWidget(frame)
+
+                button = QPushButton('Connect')
+                button.clicked.connect(lambda computer_name1=computer_name, ip=ip, m=method: self.connectDevice(computer_name1, ip, m))
+
+                frame_layout.addWidget(name_label)
+                frame_layout.addWidget(ip_label)
+                frame_layout.addWidget(os_label)
+                frame_layout.addWidget(status_container)
+                frame_layout.addWidget(button)
+                layout.addWidget(frame)
 
 
     
@@ -255,7 +250,6 @@ class DeviceConnectApp(QWidget):
 
 app = QApplication(sys.argv)
 app.setFont(QFont("Arial", 10))
-
 ex = DeviceConnectApp()
 
 ex.show()
