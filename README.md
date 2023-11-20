@@ -33,4 +33,5 @@ Tailscale is a very easy to setup VPN that lets you connect all of your devices 
 * Compatability on Macosx
 * Individual settings for each computer, that way you can select a connection method and username to connect with (I wont be doing this for passwords)
 * Create a .exe that launches the python script silently (No command prompt window visible)
+* Make console mode more clean, clear console and make the errors/info it prints easier to read
   
