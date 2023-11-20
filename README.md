@@ -7,7 +7,9 @@ Open a command prompt window and navigate to the files you downloaded
 execute "pip install -r requirements.txt"
 after that finishes execute "python main.py"
 After the window opens it should look just like this
+
 ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/eb96e62b-0645-4003-86e9-fa081108749e)
+
 Next navigate to https://login.tailscale.com/admin/settings/oauth
 Click on "Generate OAuth Client"
 The client only needs Read permissions for Devices but I prefer to give it all permissions to avoid possible issues
@@ -15,7 +17,9 @@ Back in the program that you opened click "Settings"
 Fill out the Client ID and Client Secret with the information from the Tailscale webpage
 The Tailnet Name field also needs to be filled out, the name of your tailnet is located at the top of the admin webpage
 For example my tailnet name is vcx0.com
+
 ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/1632b14e-f9dd-4b67-961f-9f174903c310)
+
 Click "Ok"
 Close the app and run the same python command to open it again
 After opening it should look something like this, Note the red rectangle is to protect my machines IP's and hostnames
