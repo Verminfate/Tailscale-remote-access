@@ -1,2 +1,2 @@
-#How it works
+# How it works
 Tailscale is a very easy to setup VPN that lets you connect all of your devices together. I use Tailscale on all of my computers and wanted a way to easily connect to any of them remotely. I created a simple python script that uses the Tailscale API to get a list of devices and check if they are online, there are currently a lot of issues with the script and this is very basic and needs to be built out more.
