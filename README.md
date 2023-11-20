@@ -31,7 +31,6 @@ All machines will need remote access enabled and configured however this script 
 * The program should be working now
 
 ## Todo
-* Store the value that decides if a machine is online/offline in the settings menu
 * Have a first start menu that appears, that way we can avoid the "Empty" computer on first startup
 * Get SSH working
 * Compatability on Macosx
