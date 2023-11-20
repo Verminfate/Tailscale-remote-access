@@ -1,17 +1,21 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox
-from PyQt5.QtCore import QSettings, Qt, QPoint
-from PyQt5.QtGui import QPalette, QColor, QFont
+from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout,QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox)
+from PyQt5.QtCore import QSettings, Qt  # Corrected import
+from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtGui import QFont
 import sys
 from datetime import datetime, timedelta
 import pytz
 import subprocess
 import requests
 
-
 settings = QSettings('VCX0', 'RMM')
 
 def check_online_status(time_string):
-    timeout = 5000
+    if(settings.value('machine_timeout', '') == ""):
+        timeout = 4500
+    else:
+        timeout = int(settings.value('machine_timeout', ''))
     timestamp = datetime.strptime(time_string, "%Y-%m-%dT%H:%M:%SZ")
     timestamp = timestamp.replace(tzinfo=pytz.UTC)
     current_time = datetime.now(tz=pytz.UTC)
@@ -36,14 +40,17 @@ class SettingsDialog(QDialog):
         self.client_id_field = QLineEdit(self)
         self.client_secret_field = QLineEdit(self)
         self.client_tailnet_name_field = QLineEdit(self)
+        self.machine_timeout = QLineEdit(self)
 
         self.client_id_field.setText(settings.value('client_id', ''))
         self.client_secret_field.setText(settings.value('client_secret', ''))
         self.client_tailnet_name_field.setText(settings.value('tailnet_name', ''))
+        self.machine_timeout.setText(settings.value('machine_timeout', ''))
 
         layout.addRow('Client ID:', self.client_id_field)
         layout.addRow('Client Secret:', self.client_secret_field)
         layout.addRow('Tailnet Name:', self.client_tailnet_name_field)
+        layout.addRow('Check-in Timeout:', self.machine_timeout)
 
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, self)
         buttons.accepted.connect(self.accept)
@@ -55,6 +62,7 @@ class SettingsDialog(QDialog):
         settings.setValue('client_id', self.client_id_field.text())
         settings.setValue('client_secret', self.client_secret_field.text())
         settings.setValue('tailnet_name', self.client_tailnet_name_field.text())
+        settings.setValue('machine_timeout', self.machine_timeout.text())
         super().accept()
 
 def grab_computer_data():
