@@ -1,13 +1,2 @@
-# webhook-finder
-Steals the webhook out of a pyinstaller tokenlogger
-
-
-If you dont want to use my skidded version found in the releases spot do this
-go to main.py and copy all that code to the very end of https://github.com/extremecoders-re/pyinstxtractor
-so that it looks like this
-
-![image](https://user-images.githubusercontent.com/72428571/167220735-9c14b8b9-4de1-46c9-b5a3-ea0399de6065.png)
-
-Then run pyinstractor normally but once its done move main.pyc to the same directory as pyinstractor.py and press enter
-enjoy the webhooks
-![image](https://user-images.githubusercontent.com/72428571/167220837-1b368480-0455-448b-9df6-bce5448fb83f.png)
+#How it works
+Tailscale is a very easy to setup VPN that lets you connect all of your devices together. I use Tailscale on all of my computers and wanted a way to easily connect to any of them remotely. I created a simple python script that uses the Tailscale API to get a list of devices and check if they are online, there are currently a lot of issues with the script and this is very basic and needs to be built out more.
