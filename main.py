@@ -58,7 +58,7 @@ class SettingsDialog(QDialog):
         layout.addRow(buttons)
 
     def accept(self):
-        print(f"Client ID:{self.client_id_field.text()}\nClient Secret:{self.client_secret_field.text()}\nTailnet Name:{self.client_tailnet_name_field.text()}")
+        print(f"Client ID:{self.client_id_field.text()}\nClient Secret:{self.client_secret_field.text()}\nTailnet Name:{self.client_tailnet_name_field.text()}\n Check-in Timeout: {self.machine_timeout.text()}")
         settings.setValue('client_id', self.client_id_field.text())
         settings.setValue('client_secret', self.client_secret_field.text())
         settings.setValue('tailnet_name', self.client_tailnet_name_field.text())
