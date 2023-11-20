@@ -31,7 +31,6 @@ All machines will need remote access enabled and configured however this script 
 * The program should be working now
 
 ## Todo
-* Have a first start menu that appears, that way we can avoid the "Empty" computer on first startup
 * Get SSH working
 * Compatability on Macosx
 * Individual settings for each computer, that way you can select a connection method and username to connect with (I wont be doing this for passwords)
