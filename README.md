@@ -3,6 +3,7 @@ Tailscale is a very easy to setup VPN that lets you connect all of your devices 
 
 ## Setup / Install
 * Click the green **Code** button at the top of the screen
+* Click **Download ZIP**
 * Extract the **zip** file that is downloaded
 * Open a command prompt in that folder
 * Execute `pip install -r requirements.txt`
@@ -15,8 +16,8 @@ Tailscale is a very easy to setup VPN that lets you connect all of your devices 
 * Open this url in your web browser https://login.tailscale.com/admin/settings/oauth
 * Click **Generate OAuth Client**
 * Give the client Read permissions to everything
-* Copy the Client ID and Client Secret into the Settings window
-* Your Tailnet name will show on the top left of the admin panel (example)
+* Copy the **Client ID** and **Client Secret** into the Settings window
+* Your Tailnet name will show on the top left of the admin panel, for instance my Tailnet name is vcx0.com
  
   ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/2169a42d-8d36-4a2c-8351-365b70c8457f)
 
