@@ -8,6 +8,7 @@ Tailscale is a very easy to setup VPN that lets you connect all of your devices 
 * Execute `pip install -r requirements.txt`
 * Execute `python main.py`
 * A new window should open that looks like this
+
  ![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/ad3f2896-4658-4eac-944f-b42e39cec368)
 
 * Click on **Settings**
