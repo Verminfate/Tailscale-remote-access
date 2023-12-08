@@ -3,8 +3,7 @@ Tailscale is a very easy to setup VPN that lets you connect all of your devices 
 
 All machines will need remote access enabled and configured however this script just makes it easier to remote into the machines themselves
 
-![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/196df6bc-8dd1-4b6a-8057-800cef0c97cd)
-
+![image](https://github.com/Verminfate/Tailscale-remote-access/assets/72428571/a81af507-ddfd-475f-a6a0-cec3d36c3c83)
 
 ## Setup / Install
 * Click the green **Code** button at the top of the screen
