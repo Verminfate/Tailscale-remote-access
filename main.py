@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (QTextEdit, QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout,QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox)
+from PyQt5.QtWidgets import (QCheckBox, QTextEdit, QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout,QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox)
 from PyQt5.QtCore import QSettings, Qt  # Corrected import
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtCore import Qt, QPoint
@@ -48,16 +48,19 @@ class SettingsDialog(QDialog):
         self.client_secret_field = QLineEdit(self)
         self.client_tailnet_name_field = QLineEdit(self)
         self.machine_timeout = QLineEdit(self)
+        self.hide_ip_checkbox = QCheckBox("Hide IP", self)
 
         self.client_id_field.setText(settings.value('client_id', ''))
         self.client_secret_field.setText(settings.value('client_secret', ''))
         self.client_tailnet_name_field.setText(settings.value('tailnet_name', ''))
         self.machine_timeout.setText(settings.value('machine_timeout', ''))
+        self.hide_ip_checkbox.setChecked(settings.value('hide_ip', False, type=bool))
 
         layout.addRow('Client ID:', self.client_id_field)
         layout.addRow('Client Secret:', self.client_secret_field)
         layout.addRow('Tailnet Name:', self.client_tailnet_name_field)
         layout.addRow('Check-in Timeout:', self.machine_timeout)
+        layout.addRow(self.hide_ip_checkbox)
 
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, self)
         buttons.accepted.connect(self.accept)
@@ -65,11 +68,12 @@ class SettingsDialog(QDialog):
         layout.addRow(buttons)
 
     def accept(self):
-        print(f"Client ID:{self.client_id_field.text()}\nClient Secret:{self.client_secret_field.text()}\nTailnet Name:{self.client_tailnet_name_field.text()}\n Check-in Timeout: {self.machine_timeout.text()}")
+        print(f"Client ID:{self.client_id_field.text()}\nClient Secret:{self.client_secret_field.text()}\nTailnet Name:{self.client_tailnet_name_field.text()}\n Check-in Timeout: {self.machine_timeout.text()}\nHide IP: {'Yes' if self.hide_ip_checkbox.isChecked() else 'No'}")
         settings.setValue('client_id', self.client_id_field.text())
         settings.setValue('client_secret', self.client_secret_field.text())
         settings.setValue('tailnet_name', self.client_tailnet_name_field.text())
         settings.setValue('machine_timeout', self.machine_timeout.text())
+        settings.setValue('hide_ip', self.hide_ip_checkbox.isChecked())
         super().accept()
 
 
@@ -179,7 +183,13 @@ class DeviceConnectApp(QWidget):
                 status_layout.setContentsMargins(0, 0, 0, 0)
 
                 name_label = QLabel(computer_name.upper())
-                ip_label = QLabel(ip)
+                hide_ip = settings.value('hide_ip', False, type=bool)
+
+                if hide_ip:
+                    ip_label = QLabel("Hidden")
+                else:
+                    ip_label = QLabel(ip)
+
                 os_label = QLabel(OS)
 
 
