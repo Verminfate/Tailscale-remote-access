@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout,QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox)
+from PyQt5.QtWidgets import (QTextEdit, QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QHBoxLayout,QFrame, QLineEdit, QFormLayout, QDialog, QDialogButtonBox)
 from PyQt5.QtCore import QSettings, Qt  # Corrected import
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtCore import Qt, QPoint
@@ -9,8 +9,13 @@ import pytz
 import subprocess
 import requests
 
+
+#Stores settings in QSettings, these values are stored in the registry
 settings = QSettings('VCX0', 'RMM')
 
+
+#Takes in a time string from Tailscale and checks it to see if the machine is online. 
+#This also uses the "Check-In Timeout" variable
 def check_online_status(time_string):
     if(settings.value('machine_timeout', '') == ""):
         timeout = 4500
@@ -26,6 +31,8 @@ def check_online_status(time_string):
         print(f"{current_time} - {timestamp} > {timeout} seconds, Machine is offline")
         return "Offline"
 
+
+#This is a class for the settings menu
 class SettingsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -65,6 +72,8 @@ class SettingsDialog(QDialog):
         settings.setValue('machine_timeout', self.machine_timeout.text())
         super().accept()
 
+
+#This function is used to grab the computers data, it uses variables stored in the settings
 def grab_computer_data():
     OAUTH_CLIENT_ID = settings.value('client_id', '')
     OAUTH_CLIENT_SECRET = settings.value('client_secret', '')
@@ -111,10 +120,16 @@ def grab_computer_data():
     else:
         print("Error:", response.status_code, response.text)
 
+
+#This calls the function above and stores the data into a variable
 computer_data = grab_computer_data()
 
+
+#Prints the data gathered
 print(computer_data)
 
+
+#This class is used to display and show the connection UI
 class DeviceConnectApp(QWidget):
     def __init__(self):
         super().__init__()
@@ -163,31 +178,27 @@ class DeviceConnectApp(QWidget):
                 status_layout.setSpacing(2)  
                 status_layout.setContentsMargins(0, 0, 0, 0)
 
-                name_label = QLabel(computer_name)
+                name_label = QLabel(computer_name.upper())
                 ip_label = QLabel(ip)
                 os_label = QLabel(OS)
 
 
-                online_offline_box = QLabel("•") #• ■
-                Last_Seen_Label = QLabel(check_online_status(Last_Seen))
-                if Last_Seen_Label.text() == "Online":
-                    online_offline_box.setStyleSheet("QLabel { color: #00FF00; font-size: 20pt; }")
-                else:
-                    online_offline_box.setStyleSheet("QLabel { color: red; font-size: 20pt; }")
-                status_layout.addWidget(online_offline_box, alignment=Qt.AlignLeft)
-                status_layout.addWidget(Last_Seen_Label, alignment=Qt.AlignLeft)
-                status_container = QWidget()
-                status_container.setLayout(status_layout)
 
+                status_label = QLabel()
+                if check_online_status(Last_Seen) == "Online":
+                    status_label.setText('<span style="color:#00FF00; font-size: 12pt;">■</span> Online')
+                else:
+                    status_label.setText('<span style="color:red; font-size: 12pt;">■</span> Offline')
 
 
                 button = QPushButton('Connect')
                 button.clicked.connect(lambda computer_name1=computer_name, ip=ip, m=method: self.connectDevice(computer_name1, ip, m))
 
+
+                frame_layout.addWidget(status_label)
                 frame_layout.addWidget(name_label)
                 frame_layout.addWidget(ip_label)
                 frame_layout.addWidget(os_label)
-                frame_layout.addWidget(status_container)
                 frame_layout.addWidget(button)
                 layout.addWidget(frame)
 
@@ -248,10 +259,10 @@ class DeviceConnectApp(QWidget):
         else:
             print("Settings dialog cancelled")
 
+
+#Create and display the UI drawn in the above function
 app = QApplication(sys.argv)
 app.setFont(QFont("Arial", 10))
 ex = DeviceConnectApp()
-
 ex.show()
-
 sys.exit(app.exec_())
